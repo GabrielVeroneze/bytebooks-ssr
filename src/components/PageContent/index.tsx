@@ -1,0 +1,9 @@
+interface PageContentProps {
+    children: React.ReactNode
+}
+
+const PageContent = ({ children }: PageContentProps) => {
+    return <div className="flex w-full justify-center mt-20">{children}</div>
+}
+
+export default PageContent
