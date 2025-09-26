@@ -5,7 +5,6 @@ import { resolvePromise } from '@/utils/delayPromise'
 import type { AppDispatch, RootState } from '@/store/store'
 import PageSection from '@/components/PageSection'
 import PageContent from '@/components/PageContent'
-import Footer from '@/components/Footer'
 
 const BooksList = lazy(() => resolvePromise(import('@/components/BooksList')))
 
@@ -82,7 +81,6 @@ const Catalog = () => {
                         </div>
                     </PageContent>
                 )}
-                <Footer />
             </>
         </>
     )
