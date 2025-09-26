@@ -11,9 +11,7 @@ const BooksList = lazy(() => resolvePromise(import('@/components/BooksList')))
 const Catalog = () => {
     const dispatch = useDispatch<AppDispatch>()
     const [filterInput, setFilterInput] = useState('')
-    const { books, filteredBooks } = useSelector(
-        (state: RootState) => state.books
-    )
+    const { books } = useSelector((state: RootState) => state.books)
 
     const showingItems = useMemo(() => {
         return filterInput.length > 0
@@ -51,7 +49,7 @@ const Catalog = () => {
                 </div>
             </PageSection>
             <>
-                {!filteredBooks?.length && filterInput.length > 0 ? (
+                {!showingItems.length && filterInput.length > 0 ? (
                     <div className="flex-1 items-center mt-4">
                         <h2 className="text-center text-[#002F52] text-[32px]">
                             Oops! Não encontramos nenhum resultado.
