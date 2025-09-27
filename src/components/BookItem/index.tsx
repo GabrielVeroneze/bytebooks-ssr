@@ -1,8 +1,7 @@
 import { memo } from 'react'
 import { useNavigate } from 'react-router'
-import { useDispatch } from 'react-redux'
-import { setSelectedBook, type Book } from '@/store/reducers/books'
-import type { AppDispatch } from '@/store/store'
+import { useBooks } from '@/context/books/useBooks'
+import type { Book } from '@/types/Book'
 
 interface BookItemProps {
     book: Book
@@ -10,13 +9,15 @@ interface BookItemProps {
 
 const BookItem = ({ book }: BookItemProps) => {
     const navigate = useNavigate()
-    const dispatch = useDispatch<AppDispatch>()
+    const {
+        actions: { setSelectedBook },
+    } = useBooks()
 
     return (
         <div
             className="flex flex-col items-start justify-center w-[246px] m-4 cursor-pointer"
             onClick={() => {
-                dispatch(setSelectedBook(book))
+                setSelectedBook(book)
                 navigate(`/book/${book.id}`)
             }}
         >
