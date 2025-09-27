@@ -1,17 +1,17 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchBooks } from '@/store/reducers/books'
+import { useBooks } from '@/context/books/useBooks'
 import { resolvePromise } from '@/utils/delayPromise'
-import type { AppDispatch, RootState } from '@/store/store'
 import PageSection from '@/components/PageSection'
 import PageContent from '@/components/PageContent'
 
 const BooksList = lazy(() => resolvePromise(import('@/components/BooksList')))
 
 const Catalog = () => {
-    const dispatch = useDispatch<AppDispatch>()
     const [filterInput, setFilterInput] = useState('')
-    const { books } = useSelector((state: RootState) => state.books)
+    const {
+        state: { books },
+        actions: { fetchBooks },
+    } = useBooks()
 
     const showingItems = useMemo(() => {
         return filterInput.length > 0
@@ -22,8 +22,9 @@ const Catalog = () => {
     }, [books, filterInput])
 
     useEffect(() => {
-        dispatch(fetchBooks())
-    }, [dispatch])
+        fetchBooks()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilterInput(e.target.value)
