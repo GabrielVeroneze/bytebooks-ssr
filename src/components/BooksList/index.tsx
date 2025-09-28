@@ -1,4 +1,4 @@
-import type { Book } from '@/store/reducers/books'
+import type { Book } from '@/types/Book'
 import BookItem from '@/components/BookItem'
 
 interface BooksListProps {
