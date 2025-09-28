@@ -1,10 +1,16 @@
 import { MdClose } from 'react-icons/md'
+import { useCart } from '@/context/cart/useCart'
+import CartItem from '@/components/CartItem'
 
 interface CartProps {
     onClose: () => void
 }
 
 const Cart = ({ onClose }: CartProps) => {
+    const {
+        state: { books },
+    } = useCart()
+
     return (
         <div className="relative z-10">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -26,8 +32,18 @@ const Cart = ({ onClose }: CartProps) => {
                                     />
                                 </div>
                                 <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                                    {/* Conteúdo do carrinho */}
-                                    <p>Seu carrinho está vazio :(</p>
+                                    {!books.length ? (
+                                        <p>Seu carrinho está vazio :(</p>
+                                    ) : (
+                                        <>
+                                            {books.map((book) => (
+                                                <CartItem
+                                                    key={book.id}
+                                                    book={book}
+                                                />
+                                            ))}
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
