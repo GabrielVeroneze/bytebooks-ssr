@@ -49,10 +49,11 @@ export const BooksProvider = ({ children }: BooksProviderProps) => {
 
             await sleep(1500)
 
-            setState({
+            setState((prev) => ({
+                ...prev,
                 books: response,
                 isLoading: false,
-            })
+            }))
         } catch {
             setState((prev) => ({
                 ...prev,
