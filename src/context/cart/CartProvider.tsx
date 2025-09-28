@@ -1,6 +1,7 @@
 import { useReducer } from 'react'
 import { CartContext } from './CartContext'
 import type { CartState } from '@/types/CartState'
+import type { CartBook } from '@/types/CartBook'
 
 interface CartProviderProps {
     children: React.ReactNode
@@ -8,11 +9,16 @@ interface CartProviderProps {
 
 const cartReducer = (
     state: CartState,
-    action: { type: string; payload: boolean }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    action: { type: string; payload?: any }
 ): CartState => {
+    console.log('state:', state.books)
     switch (action.type) {
         case 'SET_IS_CART_OPEN':
             return { ...state, isCartOpen: action.payload }
+        case 'ADD_TO_CART':
+            console.log('adicionando no carrinho:', action.payload)
+            return { ...state, books: [...state.books, action.payload] }
         default:
             return state
     }
@@ -28,12 +34,17 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         dispatch({ type: 'SET_IS_CART_OPEN', payload: isOpen })
     }
 
+    const addToCart = (book: CartBook) => {
+        dispatch({ type: 'ADD_TO_CART', payload: book })
+    }
+
     return (
         <CartContext.Provider
             value={{
                 state: state,
                 actions: {
                     setIsCartOpen,
+                    addToCart,
                 },
             }}
         >
