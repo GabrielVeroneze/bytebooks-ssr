@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useMemo, useReducer } from 'react'
 import { CartContext } from './CartContext'
 import type { CartState } from '@/types/CartState'
 import type { CartBook } from '@/types/CartBook'
@@ -12,7 +12,6 @@ const cartReducer = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     action: { type: string; payload?: any }
 ): CartState => {
-    console.log('state:', state.books)
     switch (action.type) {
         case 'SET_IS_CART_OPEN':
             return { ...state, isCartOpen: action.payload }
@@ -46,7 +45,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     const [state, dispatch] = useReducer(cartReducer, {
         books: [],
         isCartOpen: false,
+        cartTotal: '',
     })
+
+    state.cartTotal = useMemo(() => {
+        return state.books
+            .reduce((sum, book) => sum + book.price * book.quantity, 0)
+            .toFixed(2)
+    }, [state.books])
 
     const setIsCartOpen = (isOpen: boolean) => {
         dispatch({ type: 'SET_IS_CART_OPEN', payload: isOpen })
