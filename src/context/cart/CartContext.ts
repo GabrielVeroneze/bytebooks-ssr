@@ -14,6 +14,7 @@ const defaultValue: CartContextType = {
     state: {
         books: [],
         isCartOpen: false,
+        cartTotal: '',
     },
     actions: {
         setIsCartOpen: () => {},
