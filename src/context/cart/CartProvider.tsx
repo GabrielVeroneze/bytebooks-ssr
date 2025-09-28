@@ -17,7 +17,25 @@ const cartReducer = (
         case 'SET_IS_CART_OPEN':
             return { ...state, isCartOpen: action.payload }
         case 'ADD_TO_CART':
-            console.log('adicionando no carrinho:', action.payload)
+            const isBookInCart = state.books.find(
+                (book) => book.id === action.payload.id
+            )
+
+            if (isBookInCart) {
+                const newBooks = state.books.map((book) => {
+                    if (book.id === action.payload.id) {
+                        return {
+                            ...book,
+                            quantity: book.quantity + action.payload.quantity,
+                        }
+                    }
+
+                    return book
+                })
+
+                return { ...state, books: newBooks }
+            }
+
             return { ...state, books: [...state.books, action.payload] }
         default:
             return state
