@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { MdAddCircle, MdDelete, MdOutlineRemoveCircle } from 'react-icons/md'
-import type { CartBook } from '@/store/reducers/cart'
+import type { CartBook } from '@/types/CartBook'
 
 interface CartItemProps {
     book: CartBook
