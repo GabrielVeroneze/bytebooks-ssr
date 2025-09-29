@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router'
 import { MdClose } from 'react-icons/md'
 import { useCart } from '@/context/cart/useCart'
 import CartItem from '@/components/CartItem'
@@ -7,6 +8,7 @@ interface CartProps {
 }
 
 const Cart = ({ onClose }: CartProps) => {
+    const navigate = useNavigate()
     const {
         state: { books, cartTotal },
     } = useCart()
@@ -49,6 +51,18 @@ const Cart = ({ onClose }: CartProps) => {
                                                 <h3 className="text-2xl font-bold">
                                                     R$ {cartTotal}
                                                 </h3>
+                                            </div>
+                                            <div className="mt-8">
+                                                <button
+                                                    className="py-3 w-full bg-[#EB9B00] hover:opacity-80 rounded-md shadow-md"
+                                                    onClick={() =>
+                                                        navigate('/order')
+                                                    }
+                                                >
+                                                    <h3 className="text-white text-lg font-medium">
+                                                        Finalizar Compra
+                                                    </h3>
+                                                </button>
                                             </div>
                                         </>
                                     )}
