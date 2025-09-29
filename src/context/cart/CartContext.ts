@@ -7,6 +7,8 @@ interface CartContextType {
     actions: {
         setIsCartOpen: (isOpen: boolean) => void
         addToCart: (book: CartBook) => void
+        removeBook: (book: CartBook) => void
+        changeQuantity: (book: CartBook, quantity: number) => void
     }
 }
 
@@ -19,6 +21,8 @@ const defaultValue: CartContextType = {
     actions: {
         setIsCartOpen: () => {},
         addToCart: () => {},
+        removeBook: () => {},
+        changeQuantity: () => {},
     },
 }
 
