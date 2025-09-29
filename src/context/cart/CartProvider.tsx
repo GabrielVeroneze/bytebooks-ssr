@@ -36,6 +36,25 @@ const cartReducer = (
             }
 
             return { ...state, books: [...state.books, action.payload] }
+        case 'REMOVE_BOOK':
+            const newBooks = state.books.filter(
+                (book) => book.id !== action.payload.id
+            )
+
+            return { ...state, books: newBooks }
+        case 'CHANGE_QUANTITY':
+            const updatedBooks = state.books.map((book) => {
+                if (book.id === action.payload.id) {
+                    return {
+                        ...book,
+                        quantity: action.payload.quantity,
+                    }
+                }
+
+                return book
+            })
+
+            return { ...state, books: updatedBooks }
         default:
             return state
     }
@@ -62,6 +81,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         dispatch({ type: 'ADD_TO_CART', payload: book })
     }
 
+    const removeBook = (book: CartBook) => {
+        dispatch({ type: 'REMOVE_BOOK', payload: book })
+    }
+
+    const changeQuantity = (book: CartBook, quantity: number) => {
+        dispatch({ type: 'CHANGE_QUANTITY', payload: { ...book, quantity } })
+    }
+
     return (
         <CartContext.Provider
             value={{
@@ -69,6 +96,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
                 actions: {
                     setIsCartOpen,
                     addToCart,
+                    removeBook,
+                    changeQuantity,
                 },
             }}
         >
