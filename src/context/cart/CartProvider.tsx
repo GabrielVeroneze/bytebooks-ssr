@@ -13,9 +13,10 @@ const cartReducer = (
     action: { type: string; payload?: any }
 ): CartState => {
     switch (action.type) {
-        case 'SET_IS_CART_OPEN':
+        case 'SET_IS_CART_OPEN': {
             return { ...state, isCartOpen: action.payload }
-        case 'ADD_TO_CART':
+        }
+        case 'ADD_TO_CART': {
             const isBookInCart = state.books.find(
                 (book) => book.id === action.payload.id
             )
@@ -36,13 +37,15 @@ const cartReducer = (
             }
 
             return { ...state, books: [...state.books, action.payload] }
-        case 'REMOVE_BOOK':
+        }
+        case 'REMOVE_BOOK': {
             const newBooks = state.books.filter(
                 (book) => book.id !== action.payload.id
             )
 
             return { ...state, books: newBooks }
-        case 'CHANGE_QUANTITY':
+        }
+        case 'CHANGE_QUANTITY': {
             const updatedBooks = state.books.map((book) => {
                 if (book.id === action.payload.id) {
                     return {
@@ -55,6 +58,7 @@ const cartReducer = (
             })
 
             return { ...state, books: updatedBooks }
+        }
         default:
             return state
     }
