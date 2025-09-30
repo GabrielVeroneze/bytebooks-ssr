@@ -1,10 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { useCart } from '@/context/cart/useCart'
 import PageSection from '@/components/PageSection'
 
 const Order = () => {
     const navigate = useNavigate()
+    const {
+        state: { books },
+        actions: { resetCart },
+    } = useCart()
     const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        if (books.length) {
+            setTimeout(() => {
+                setIsLoading(false)
+                resetCart()
+            }, 3000)
+        }
+    }, [books, resetCart])
 
     return (
         <>
@@ -14,7 +28,7 @@ const Order = () => {
                 </h1>
             </PageSection>
             <div className="h-96 mb-60 mt-20 w-full items-center justify-center flex">
-                {!isLoading ? (
+                {isLoading ? (
                     <img src="/loading.gif" alt="carregando" width={200} />
                 ) : (
                     <div className="flex-row justify-center">
