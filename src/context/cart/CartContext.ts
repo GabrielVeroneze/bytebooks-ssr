@@ -9,6 +9,7 @@ interface CartContextType {
         addToCart: (book: CartBook) => void
         removeBook: (book: CartBook) => void
         changeQuantity: (book: CartBook, quantity: number) => void
+        resetCart: () => void
     }
 }
 
@@ -23,6 +24,7 @@ const defaultValue: CartContextType = {
         addToCart: () => {},
         removeBook: () => {},
         changeQuantity: () => {},
+        resetCart: () => {},
     },
 }
 
