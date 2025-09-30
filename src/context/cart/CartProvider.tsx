@@ -59,6 +59,9 @@ const cartReducer = (
 
             return { ...state, books: updatedBooks }
         }
+        case 'RESET_CART': {
+            return { ...state, books: [] }
+        }
         default:
             return state
     }
@@ -93,6 +96,10 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         dispatch({ type: 'CHANGE_QUANTITY', payload: { ...book, quantity } })
     }
 
+    const resetCart = () => {
+        dispatch({ type: 'RESET_CART' })
+    }
+
     return (
         <CartContext.Provider
             value={{
@@ -102,6 +109,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
                     addToCart,
                     removeBook,
                     changeQuantity,
+                    resetCart,
                 },
             }}
         >
