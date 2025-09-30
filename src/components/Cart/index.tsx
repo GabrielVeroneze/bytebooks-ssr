@@ -11,6 +11,7 @@ const Cart = ({ onClose }: CartProps) => {
     const navigate = useNavigate()
     const {
         state: { books, cartTotal },
+        actions: { setIsCartOpen },
     } = useCart()
 
     return (
@@ -55,9 +56,10 @@ const Cart = ({ onClose }: CartProps) => {
                                             <div className="mt-8">
                                                 <button
                                                     className="py-3 w-full bg-[#EB9B00] hover:opacity-80 rounded-md shadow-md"
-                                                    onClick={() =>
+                                                    onClick={() => {
+                                                        setIsCartOpen(false)
                                                         navigate('/order')
-                                                    }
+                                                    }}
                                                 >
                                                     <h3 className="text-white text-lg font-medium">
                                                         Finalizar Compra
